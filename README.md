@@ -29,6 +29,9 @@ cd java-project-71
 ### Сравнение YAML-файлов
 ![Пример работы gendiff с YAML](images/flat-yaml-diff.png)
 
+### Формат stylish
+![Пример работы stylish](images/stylish-nested-diff.png)
+
 <details>
 <summary>Автоматические тесты Хекслета</summary>
 
