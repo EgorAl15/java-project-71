@@ -27,4 +27,24 @@ class DifferTest {
         assertEquals(true, data2.get("verbose"));
         assertEquals("hexlet.io", data2.get("host"));
     }
+
+    @Test
+    void testGenerate() throws Exception {
+        String expected = """
+                {
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
+                }""";
+
+        String actual = Differ.generate(
+                "src/test/resources/fixtures/file1.json",
+                "src/test/resources/fixtures/file2.json"
+        );
+
+        assertEquals(expected, actual);
+    }
 }
