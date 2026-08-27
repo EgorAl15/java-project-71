@@ -1,7 +1,9 @@
 package hexlet.code;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 class DifferTest {
@@ -90,5 +92,20 @@ class DifferTest {
         Differ.generate(FIXTURES_PATH + "nested1.json", FIXTURES_PATH + "nested2.json", "plain");
 
     assertEquals(EXPECTED_PLAIN, actual);
+  }
+
+  @Test
+  void testGenerateJsonFormat() throws Exception {
+    String actual =
+        Differ.generate(FIXTURES_PATH + "nested1.json", FIXTURES_PATH + "nested2.json", "json");
+
+    ObjectMapper mapper = new ObjectMapper();
+    var parsed = mapper.readTree(actual);
+
+    assertTrue(parsed.isArray());
+    assertTrue(parsed.size() > 0);
+
+    assertEquals("chars1", parsed.get(0).get("key").asText());
+    assertEquals("unchanged", parsed.get(0).get("status").asText());
   }
 }

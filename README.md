@@ -35,6 +35,9 @@ cd java-project-71
 ### Формат plain
 ![Пример работы plain](images/plain-diff.png)
 
+### Формат json
+![Пример работы json](images/json-diff.png)
+
 <details>
 <summary>Автоматические тесты Хекслета</summary>
 
