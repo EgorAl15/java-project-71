@@ -2,44 +2,36 @@ package hexlet.code;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class DifferTest {
 
-  @Test
-  void testGetData() throws Exception {
-    Map<String, Object> data1 = Differ.getData("src/test/resources/fixtures/file1.json");
-
-    assertEquals("hexlet.io", data1.get("host"));
-    assertEquals(50, data1.get("timeout"));
-    assertEquals("123.234.53.22", data1.get("proxy"));
-    assertEquals(false, data1.get("follow"));
-
-    Map<String, Object> data2 = Differ.getData("src/test/resources/fixtures/file2.json");
-
-    assertEquals(20, data2.get("timeout"));
-    assertEquals(true, data2.get("verbose"));
-    assertEquals("hexlet.io", data2.get("host"));
-  }
+  private static final String EXPECTED =
+      """
+            {
+              - follow: false
+                host: hexlet.io
+              - proxy: 123.234.53.22
+              - timeout: 50
+              + timeout: 20
+              + verbose: true
+            }""";
 
   @Test
-  void testGenerate() throws Exception {
-    String expected =
-        """
-                {
-                  - follow: false
-                    host: hexlet.io
-                  - proxy: 123.234.53.22
-                  - timeout: 50
-                  + timeout: 20
-                  + verbose: true
-                }""";
-
+  void testGenerateJson() throws Exception {
     String actual =
         Differ.generate(
             "src/test/resources/fixtures/file1.json", "src/test/resources/fixtures/file2.json");
 
-    assertEquals(expected, actual);
+    assertEquals(EXPECTED, actual);
+  }
+
+  @Test
+  void testGenerateYaml() throws Exception {
+    String actual =
+        Differ.generate(
+            "src/test/resources/fixtures/file1.yml", "src/test/resources/fixtures/file2.yml");
+
+    assertEquals(EXPECTED, actual);
   }
 }

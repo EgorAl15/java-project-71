@@ -25,7 +25,9 @@ cd java-project-71
 
 <!-- Добавьте примеры запуска и запись asciinema — именно это смотрит работодатель -->
 ![Пример работы gendiff](images/flat-json-diff.png)
----
+
+### Сравнение YAML-файлов
+![Пример работы gendiff с YAML](images/flat-yaml-diff.png)
 
 <details>
 <summary>Автоматические тесты Хекслета</summary>
