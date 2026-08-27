@@ -2,7 +2,6 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,82 +11,58 @@ import java.util.TreeSet;
 
 public class Differ {
 
-    public static String generate(String filePath1, String filePath2) throws Exception {
-        Map<String, Object> data1 = getData(filePath1);
-        Map<String, Object> data2 = getData(filePath2);
+  public static String generate(String filePath1, String filePath2) throws Exception {
+    Map<String, Object> data1 = getData(filePath1);
+    Map<String, Object> data2 = getData(filePath2);
 
-        Set<String> keys = new TreeSet<>();
-        keys.addAll(data1.keySet());
-        keys.addAll(data2.keySet());
+    Set<String> keys = new TreeSet<>();
+    keys.addAll(data1.keySet());
+    keys.addAll(data2.keySet());
 
-        StringBuilder result = new StringBuilder();
-        result.append("{\n");
+    StringBuilder result = new StringBuilder();
+    result.append("{\n");
 
-        for (String key : keys) {
-            boolean inFirst = data1.containsKey(key);
-            boolean inSecond = data2.containsKey(key);
+    for (String key : keys) {
+      boolean inFirst = data1.containsKey(key);
+      boolean inSecond = data2.containsKey(key);
 
-            Object value1 = data1.get(key);
-            Object value2 = data2.get(key);
+      Object value1 = data1.get(key);
+      Object value2 = data2.get(key);
 
-            if (inFirst && !inSecond) {
-                result.append("  - ")
-                        .append(key)
-                        .append(": ")
-                        .append(value1)
-                        .append("\n");
+      if (inFirst && !inSecond) {
+        result.append("  - ").append(key).append(": ").append(value1).append("\n");
 
-            } else if (!inFirst && inSecond) {
-                result.append("  + ")
-                        .append(key)
-                        .append(": ")
-                        .append(value2)
-                        .append("\n");
+      } else if (!inFirst && inSecond) {
+        result.append("  + ").append(key).append(": ").append(value2).append("\n");
 
-            } else if (value1 == null ? value2 == null : value1.equals(value2)) {
-                result.append("    ")
-                        .append(key)
-                        .append(": ")
-                        .append(value1)
-                        .append("\n");
+      } else if (value1 == null ? value2 == null : value1.equals(value2)) {
+        result.append("    ").append(key).append(": ").append(value1).append("\n");
 
-            } else {
-                result.append("  - ")
-                        .append(key)
-                        .append(": ")
-                        .append(value1)
-                        .append("\n");
+      } else {
+        result.append("  - ").append(key).append(": ").append(value1).append("\n");
 
-                result.append("  + ")
-                        .append(key)
-                        .append(": ")
-                        .append(value2)
-                        .append("\n");
-            }
-        }
-
-        result.append("}");
-
-        return result.toString();
+        result.append("  + ").append(key).append(": ").append(value2).append("\n");
+      }
     }
 
-    public static Map<String, Object> getData(String filePath) throws Exception {
-        String content = readFile(filePath);
-        return parse(content);
-    }
+    result.append("}");
 
-    private static String readFile(String filePath) throws Exception {
-        Path path = Paths.get(filePath).toAbsolutePath().normalize();
-        return Files.readString(path);
-    }
+    return result.toString();
+  }
 
-    private static Map<String, Object> parse(String content) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
+  public static Map<String, Object> getData(String filePath) throws Exception {
+    String content = readFile(filePath);
+    return parse(content);
+  }
 
-        return mapper.readValue(
-                content,
-                new TypeReference<Map<String, Object>>() {
-                }
-        );
-    }
+  private static String readFile(String filePath) throws Exception {
+    Path path = Paths.get(filePath).toAbsolutePath().normalize();
+    return Files.readString(path);
+  }
+
+  private static Map<String, Object> parse(String content) throws Exception {
+    ObjectMapper mapper = new ObjectMapper();
+
+    return mapper.readValue(content, new TypeReference<Map<String, Object>>() {});
+  }
 }

@@ -1,6 +1,7 @@
 # Вычислитель отличий (Java)
 
 [![hexlet-check](https://github.com/EgorAl15/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/EgorAl15/java-project-71/actions)
+[![Build](https://github.com/EgorAl15/java-project-71/actions/workflows/build.yml/badge.svg)](https://github.com/EgorAl15/java-project-71/actions/workflows/build.yml)
 
 В этом проекте отрабатывается работа с коллекциями и структурами данных. Изучаются способы построения и обхода деревьев. Вы познакомитесь с разными форматами данных (json, yml), научитесь их парсить и формировать. Начнете писать тесты (JUnit) и освоите разработку через них. Познакомитесь с непрерывной интеграцией (CI) и элементами экстремального программирования (XP). Прокачаете ООП мышление.
 

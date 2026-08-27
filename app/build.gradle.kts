@@ -1,6 +1,9 @@
 plugins {
     application
+    jacoco
+
     id("io.github.ben-manes.versions") version "0.61.0"
+    id("com.diffplug.spotless") version "8.9.0"
 }
 
 group = "hexlet.code"
@@ -23,6 +26,35 @@ application {
     mainClass.set("hexlet.code.App")
 }
 
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.14"
+}
+
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.jacocoTestCoverageVerification {
+    dependsOn(tasks.test)
+
+    violationRules {
+        rule {
+            element = "CLASS"
+            includes = listOf("hexlet.code.Differ")
+
+            limit {
+                minimum = "0.80".toBigDecimal()
+            }
+        }
+    }
+}
+
+tasks.check {
+    dependsOn(tasks.jacocoTestCoverageVerification)
 }
