@@ -47,6 +47,22 @@ class DifferTest {
               + setting3: none
             }""";
 
+  private static final String EXPECTED_PLAIN =
+      """
+            Property 'chars2' was updated. From [complex value] to false
+            Property 'checked' was updated. From false to true
+            Property 'default' was updated. From null to [complex value]
+            Property 'id' was updated. From 45 to null
+            Property 'key1' was removed
+            Property 'key2' was added with value: 'value2'
+            Property 'numbers2' was updated. From [complex value] to [complex value]
+            Property 'numbers3' was removed
+            Property 'numbers4' was added with value: [complex value]
+            Property 'obj1' was added with value: [complex value]
+            Property 'setting1' was updated. From 'Some value' to 'Another value'
+            Property 'setting2' was updated. From 200 to 300
+            Property 'setting3' was updated. From true to 'none'""";
+
   @Test
   void testGenerateJson() throws Exception {
     String actual = Differ.generate(FIXTURES_PATH + "file1.json", FIXTURES_PATH + "file2.json");
@@ -66,5 +82,13 @@ class DifferTest {
     String actual = Differ.generate(FIXTURES_PATH + "nested1.json", FIXTURES_PATH + "nested2.json");
 
     assertEquals(EXPECTED_NESTED, actual);
+  }
+
+  @Test
+  void testGeneratePlain() throws Exception {
+    String actual =
+        Differ.generate(FIXTURES_PATH + "nested1.json", FIXTURES_PATH + "nested2.json", "plain");
+
+    assertEquals(EXPECTED_PLAIN, actual);
   }
 }

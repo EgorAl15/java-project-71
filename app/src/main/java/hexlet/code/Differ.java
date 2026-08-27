@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import hexlet.code.formatters.Stylish;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,18 +11,15 @@ public class Differ {
     return generate(filePath1, filePath2, "stylish");
   }
 
-  public static String generate(String filePath1, String filePath2, String format)
+  public static String generate(String filePath1, String filePath2, String formatName)
       throws Exception {
+
     Map<String, Object> data1 = getData(filePath1);
     Map<String, Object> data2 = getData(filePath2);
 
     var diff = DiffBuilder.build(data1, data2);
 
-    if ("stylish".equals(format)) {
-      return Stylish.format(diff);
-    }
-
-    throw new Exception("Unknown format: " + format);
+    return Formatter.format(diff, formatName);
   }
 
   private static Map<String, Object> getData(String filePath) throws Exception {

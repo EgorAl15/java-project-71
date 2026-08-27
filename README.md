@@ -32,6 +32,9 @@ cd java-project-71
 ### Формат stylish
 ![Пример работы stylish](images/stylish-nested-diff.png)
 
+### Формат plain
+![Пример работы plain](images/plain-diff.png)
+
 <details>
 <summary>Автоматические тесты Хекслета</summary>
 
